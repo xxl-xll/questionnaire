@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>    
+    <title>一般健康问卷(GHQ-12)</title>
+  <meta http-equiv="content-type" content="text/html; charset=gbk" />
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+  </head>
+<script language="javascript">
+ 
+function main(){
+  var questionArray = new Array("Q1","Q2","Q3","Q4","Q5","Q6","Q7","Q8","Q9","Q10","Q11","Q12");
+  var resultArray = new Array();
+  var rightArray = new Array(false,false,false,false,false,false,false,false,false,false,false,false);//最初把得分全部设置为0
+ 
+  //aryAns[]是从后端返回的数组,当点击交卷的时候,向后端请求正确答案的数组,赋值给aryAns[]即可;
+  //var aryAns = new Array(4,3,4,3,2);   //建立储存正确答案的数组
+  for (var i = 0; i < questionArray.length; i++) {
+    var selectedAnswer = getSelectedAnswer(questionArray[i]);
+    
+    if (selectedAnswer !== 10) {
+        resultArray.push(selectedAnswer);
+      } else {
+        alert("您未作答第 " + (i + 1) + " 题!");
+        return false; // 未完成题目会做出提示
+      }
+  }
+
+  var totalScore= 0;//计算问卷最后的得分
+  for (var i = 0; i < questionArray.length; i++) {
+     totalScore +=resultArray[i];   
+  }
+  document.getElementById("right_number").innerText = totalScore;
+
+  var diagnosis = " ";
+  if(totalScore>27){
+    scoreMessage = "根据国际一般健康问卷的评分机制，您的心理健康状况不佳。";
+  }else{
+    scoreMessage = "根据国际一般健康问卷的评分机制，您的心理健康良好。"
+  }
+  document.getElementById("score_message").innerText = scoreMessage;
+};
+
+function getSelectedAnswer(name) {
+    var temp = document.getElementsByName(name);
+    for (var i = 0; i < temp.length; i++) {
+      if (temp[i].checked) {
+        return parseInt(temp[i].value);
+      }
+    }
+    return 10; // Return 10 if no answer is selected}
+  }
+
+</script>
+  <body onload="time_fun()" style="padding:80px;
+">
+  	<center>
+  		<font size="6" color="green"><b>一般健康评量表（GUQ-12）</b></font>
+        <h1>本次测评共有12道题，请阅读后认真选出最适合您的答案，一下问题是针对从2-3周前到现在的状况，请选择最合适的一项  </h1>
+ 
+  	</center><br>
+  	<hr>
+  	<!--  下面表单将以post的方法，将数据传递给Text -->
+  		<!-- 第一道题 -->
+  		<p>1.能集中精力于你做的任何事情吗？</p>
+  		<p>
+  			<input type="radio" name="Q1" value="1">经常<br>
+  			<input type="radio" name="Q1" value="2">有时<br>
+  			<input type="radio" name="Q1" value="3">很少<br>
+  			<input type="radio" name="Q1" value="4">从不<br>  <!-- D -->
+  		</p>
+  		<p>2.由于焦虑而失眠？</p>
+  		<p>
+  			<input type="radio" name="Q2" value="1">从不<br>
+  			<input type="radio" name="Q2" value="2">有时<br>
+  			<input type="radio" name="Q2" value="3">很少<br>   <!-- C -->
+  			<input type="radio" name="Q2" value="4">从不<br>
+  		</p>
+  		<p>3.感到对事物发挥作用了吗？</p>
+  		<p>
+  			<input type="radio" name="Q3" value="1">经常<br>
+  			<input type="radio" name="Q3" value="2">有时<br>
+  			<input type="radio" name="Q3" value="3">很少<br>
+  			<input type="radio" name="Q3" value="4">从不<br>   <!-- D -->
+  		</p>
+  		<p>4.感到对事物能做决定吗？</p>
+  		<p>
+  			<input type="radio" name="Q4" value="1">经常<br>
+  			<input type="radio" name="Q4" value="2">有时<br>
+  			<input type="radio" name="Q4" value="3">很少<br>    <!-- C -->
+  			<input type="radio" name="Q4" value="4">从不<br>
+  		</p>
+  		<p>5.一直感到精神紧张</p>
+  		<p>
+  			<input type="radio" name="Q5" value="1">从不
+  			<input type="radio" name="Q5" value="2">很少    <!-- B -->
+  			<input type="radio" name="Q5" value="3">有时
+  			<input type="radio" name="Q5" value="4">经常
+  		</p>
+      <p>6.感到不能克服困难</p>
+  		<p>
+  			<input type="radio" name="Q6" value="1">从不
+  			<input type="radio" name="Q6" value="2">很少    <!-- B -->
+  			<input type="radio" name="Q6" value="3">有时
+  			<input type="radio" name="Q6" value="4">经常
+  		</p>
+      <p>7.能喜欢日常的活动吗？</p>
+  		<p>
+  			<input type="radio" name="Q7" value="1">经常
+  			<input type="radio" name="Q7" value="2">有时    <!-- B -->
+  			<input type="radio" name="Q7" value="3">很少
+  			<input type="radio" name="Q7" value="4">从不
+  		</p>
+      <p>8.能不回避矛盾吗？</p>
+  		<p>
+  			<input type="radio" name="Q8" value="1">经常
+  			<input type="radio" name="Q8" value="2">有时    <!-- B -->
+  			<input type="radio" name="Q8" value="3">很少
+  			<input type="radio" name="Q8" value="4">从不
+  		</p>
+      <p>9.感到不高兴和抑郁？</p>
+  		<p>
+  			<input type="radio" name="Q9" value="1">从不
+  			<input type="radio" name="Q9" value="2">很少    <!-- B -->
+  			<input type="radio" name="Q9" value="3">有时
+  			<input type="radio" name="Q9" value="4">经常
+  		</p>
+      <p>10.对自己失去信心了吗？</p>
+  		<p>
+  			<input type="radio" name="Q10" value="1">从不
+  			<input type="radio" name="Q10" value="2">很少    <!-- B -->
+  			<input type="radio" name="Q10" value="3">有时
+  			<input type="radio" name="Q10" value="4">经常
+  		</p>
+      <p>11.认为自己是一个没有价值的人？</p>
+  		<p>
+  			<input type="radio" name="Q11" value="1">从不
+  			<input type="radio" name="Q11" value="2">很少    <!-- B -->
+  			<input type="radio" name="Q11" value="3">有时
+  			<input type="radio" name="Q11" value="4">经常
+  		</p>
+      <p>12.总的来看，感到适度的愉快吗？</p>
+  		<p>
+  			<input type="radio" name="Q12" value="1">经常
+  			<input type="radio" name="Q12" value="2">有时    <!-- B -->
+  			<input type="radio" name="Q12" value="3">很少
+  			<input type="radio" name="Q12" value="4">从不
+  		</p>
+      <button onclick="javascript:main();">提交问卷结果</button>
+  		<h3>
+      此心理测试内部一致信度系数为0.71，测试结果只是基于测试人所选择的选项进行分析判断，该结果并不能用于替代正式的诊断，且本次测试仅作为初步参考，如果您感到需要深入了解和解决问题，建议咨询专业心理咨询师或医生的帮助
+      <br>
+      经过测评，您的一般心理测评分数为:<span id="right_number" style="color:red"></span>
+       <br>
+      测评结果为:<span id="score_message" style="color:red"></span>
+  		</h3>
+  </body>
+</html>
+ 
